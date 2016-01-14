@@ -19,7 +19,7 @@ makeCacheMatrix <- function(x = matrix()) {
     }
     
     # This will pull down the data of interest from the cached vector
-    # This also seems unnecessary since x$get returns x.  Really wish this had been (or could be) explained.
+    # This also seems unnecessary since x$get() returns x.  Really wish this had been (or could be) explained.
     # Same thoughts about over-code vs. under-code for now
     get <- function() x
     
