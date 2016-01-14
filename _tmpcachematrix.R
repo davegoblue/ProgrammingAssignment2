@@ -2,6 +2,7 @@
 ## This allows the matrix inverse to be calculated only the first time, with the inverse matrix then cached
 ## For the second (and further) times requested, the inverse will be returned directly from the cache
 
+
 ## This first function will cache the matrix inverses
 ## It is written to be broadly parallel with makeVector from the Coursera example
 
@@ -66,4 +67,35 @@ cacheSolve <- function(x, ...) {
     message("needed to invert this; it was not previously cached but is now")
     myInverse
     
+}
+
+# Create a function to test whether the process is working
+testAssign2LexScope <- function(size=1000,runs=12) {
+    
+    # Create some test matrices using rnorm
+    for (myNumber in sizes) {
+        
+        # Create an NxN matrix using rnorm for each of the passed sizes
+        tempVar <- paste0("testMatrix",myNumber)
+        assign(tempVar,matrix(rnorm(myNumber^2),myNumber,myNumber))
+        
+        # Run the makeCacheMatrix function
+        tempVar2 <- paste0("testCache",myNumber)
+        assign(tempVar2,makeCacheMatrix(tempVar))
+    }
+    
+    # Make runs draws from the matrix list and see what happens
+    for (myRun in 1:runs) {
+        
+        # Pull a random number for the matrix 
+        thisRand <- sizes[sample(1:length(sizes),1)]
+        message("This is run number ", myRun, " using sequence ", thisRand)
+        
+        # Run the cacheSolve process for the assigned matrix
+        tempRunThis <- paste0("testCache",thisRand)
+        cacheSolve(tempRunThis)
+        
+        message("This took ", " " , " seconds to run")
+        message(" ")
+    }
 }
